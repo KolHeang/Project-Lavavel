@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,7 +52,8 @@ class AuthController extends Controller
                 'result' => 'Invalid credentials'
             ], 401);
         }
-        $token = $user->createToken('auth_token')->plainTextToken;
+         // Generate token
+        $token = $user->createToken('token')->plainTextToken;
         return response()->json([
             'status' => 200,
             'result' => 'User logged in successfully',
