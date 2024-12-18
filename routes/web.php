@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('master');
+    return view('staff.list');
 });
 
-Route::get('/staff',[StaffController::class,'index']);
+// Route::get('/staff',[StaffController::class,'index']);
