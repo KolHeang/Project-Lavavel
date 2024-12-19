@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\StaffController;
+use App\Models\Employee;
 use App\Models\Staff;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('staff.list');
-});
 
-// Route::get('/staff',[StaffController::class,'index']);
+
+Route::get('/',[EmployeeController::class,'index']);
+Route::get('/employee',[EmployeeController::class,'index']);
+Route::get('/employee/create',[EmployeeController::class,'create']);
