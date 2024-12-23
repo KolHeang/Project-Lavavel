@@ -65,8 +65,8 @@
 
                 </div>
                 <div class="flex justify-end mt-4 gap-x-4">
-                    <a href="{{ route('listEmployee') }}" class="flex items-center justify-center w-20 p-2 bg-red-500 rounded-md shadow-md hover:bg-red-600 text-md">Back</a>
-                    <button type="submit" class="flex items-center justify-center w-20 p-2 bg-green-500 rounded-md shadow-md hover:bg-green-600 text-md">Save</button>
+                    <a href="{{ route('listEmployee') }}" class="flex items-center justify-center w-20 p-1 bg-red-500 rounded-md shadow-md hover:bg-red-600 text-md">Back</a>
+                    <button type="submit" class="flex items-center justify-center w-20 p-1 bg-green-500 rounded-md shadow-md hover:bg-green-600 text-md">Save</button>
                 </div>
             </form>
         </div>

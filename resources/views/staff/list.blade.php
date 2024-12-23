@@ -2,7 +2,7 @@
 @section('content')
 <div class="flex flex-col w-full h-full"> 
     <div class="p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg">
-        <div class="flex items-center justify-end mt-4 mb-4 mr-5">
+        <div class="flex items-center justify-end mt-2 mb-4 mr-5">
             <a href="{{ route('createEmployee') }}" class="flex items-center justify-center w-20 p-1 font-sans text-lg text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-700">Create</a>
         </div>
         <table class="min-w-full divide-y divide-gray-300">
