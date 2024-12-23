@@ -20,5 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',[EmployeeController::class,'index']);
-Route::get('/employee',[EmployeeController::class,'index']);
-Route::get('/employee/create',[EmployeeController::class,'create']);
+Route::get('/employee',[EmployeeController::class,'index'])->name('listEmployee');
+Route::get('/employee/create',[EmployeeController::class,'create'])->name('createEmployee');
+Route::post('/employee/store',[EmployeeController::class,'store'])->name('storeEmployee');
+Route::get('/employee/edit/{id}',[EmployeeController::class,'edit'])->name('editEmployee');
+Route::put('/employee/update',[EmployeeController::class,'update'])->name('updateEmployee');
+Route::delete('/employee/delete/{id}',[EmployeeController::class,'destroy'])->name('deleteEmployee');

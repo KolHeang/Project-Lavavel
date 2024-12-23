@@ -43,14 +43,19 @@ class EmployeeController extends Controller
             $employee = new Employee();
             $employee->name = $request->name;
             $employee->gender = $request->gender;
-            $employee->dob = $request->dob;
+            $employee->dob = date('Y-m-d', strtotime($request->dob));
             $employee->email = $request->email;
             $employee->phone = $request->phone;
             $employee->position = $request->position;
             $employee->salary = $request->salary;
             $employee->address = $request->address;
             $employee->save();
-            return responeController::success('Employee created successfully');
+            if ($employee) {
+                return redirect()->route('listEmployee')->with('success', 'Employee created successfully');
+            } 
+            else {
+                return redirect()->back()->with('error', 'Failed to create employee');
+            }
         }
         catch(Exception $e){
             return responeController::error($e->getMessage());
@@ -66,6 +71,16 @@ class EmployeeController extends Controller
             else{
                 return responeController::error('Employee not found');
             }
+        }
+        catch(Exception $e){
+            return responeController::error($e->getMessage());
+        }
+    }
+    public function edit($id)
+    {
+        try{
+            $employee = Employee::find($id);
+            return view('staff.edit',['employee' => $employee]);
         }
         catch(Exception $e){
             return responeController::error($e->getMessage());
@@ -93,14 +108,40 @@ class EmployeeController extends Controller
             if($employee){
                 $employee->name = $request->name;
                 $employee->gender = $request->gender;
-                $employee->dob = $request->dob;
+                $employee->dob = date('Y-m-d', strtotime($request->dob));
                 $employee->email = $request->email;
                 $employee->phone = $request->phone;
                 $employee->position = $request->position;
                 $employee->salary = $request->salary;
                 $employee->address = $request->address;
                 $employee->update();
-                return responeController::success('Employee updated successfully');
+                if ($employee) {
+                    return redirect()->route('listEmployee')->with('success', 'Employee updated successfully');
+                }
+                else {
+                    return redirect()->back()->with('error', 'Failed to update employee');
+                }
+            }
+            else{
+                return responeController::error('Employee not found');
+            }
+        }
+        catch(Exception $e){
+            return responeController::error($e->getMessage());
+        }
+    }
+    public function destroy($id)
+    {
+        try{
+            $employee = Employee::find($id);
+            if($employee){
+                $employee->delete();
+                if ($employee) {
+                    return redirect()->route('listEmployee')->with('success', 'Employee deleted successfully');
+                }
+                else {
+                    return redirect()->back()->with('error', 'Failed to delete employee');
+                }
             }
             else{
                 return responeController::error('Employee not found');
