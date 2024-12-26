@@ -59,7 +59,8 @@ class AuthController extends Controller
                 $user = auth()->user();
                 $token = $user->createToken('auth_token')->plainTextToken;
                 return redirect()->route('listEmployee')->with('success', 'Login successful');
-            } else {
+            } 
+            else {
                 return redirect()->back()->with('error', 'Invalid credentials');
             }
         }catch(Exception $e){
@@ -69,7 +70,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
-    public function logout(Request $request)
+    public function logout()
     {
         try{
             Auth::logout();

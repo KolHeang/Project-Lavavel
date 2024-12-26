@@ -3,75 +3,82 @@
 <div class="flex flex-col w-full h-full"> 
     <div class="p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg">
         <div class="flex items-center justify-end mt-2 mb-4 mr-5">
-            <a href="{{ route('createEmployee') }}" class="flex items-center justify-center w-20 p-1 font-sans text-lg text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-700">Create</a>
+            <div class="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 rounded-md hover:bg-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <a href="{{ route('createEmployee') }}" class="font-sans font-medium text-white ">Create</a>
+            </div>
         </div>
-        <table class="min-w-full divide-y divide-gray-300">
-            <thead class="text-gray-700 text-md bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        No
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Employee Name
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Gender
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        BirthDate
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Phone
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Email
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Position
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Salary
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Address
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Action
-                    </th>
-                </tr>
-            </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+        
+        <div class="inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6">
+            <table class="min-w-full divide-y divide-gray-300">
+                <thead>
+                    <tr>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            No
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Employee Name
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Gender
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            BirthDate
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Phone
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Email
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Position
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Salary
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Address
+                        </th>
+                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                    <tbody class="bg-white">
                         @foreach ($employees as $key => $data)
-                            <tr class="text-sm bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="px-6 py-4">
+                            <tr class="even:bg-gray-50">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $key + 1 }}
                                 </td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $data->name }}
-                                </th>
-                                <td class="px-6 py-4">
+                                </td>
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $data->gender }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ \Carbon\Carbon::parse($data->dob)->format('m-d-Y') }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $data->phone }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $data->email }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $data->position }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     $ {{ $data->salary }}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $data->address }}
                                 </td>
-
-                                <td class="flex gap-4 px-6 py-4">
+    
+                                <td class="flex items-center gap-4 px-6 py-4">
                                     <a href="{{ route('editEmployee',['id' => $data->id])}}" class="font-medium">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-blue-500 hover:fill-blue-700"
                                         viewBox="0 0 348.882 348.882">
@@ -83,7 +90,7 @@
                                             data-original="#000000" />
                                         </svg>
                                     </a>
-                                    <form action="{{ route('deleteEmployee', ['id' => $data->id]) }}" method="POST" >
+                                    <form action="{{ route('deleteEmployee', ['id' => $data->id]) }}" method="POST" class="flex items-center justify-center" >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="font-medium">
@@ -100,11 +107,13 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    
-                </table>
+                        
+            </table>
                 <div class="mt-4">
                     {{ $employees->links() }}
                 </div>
-            </div>
+        </div>
+        
     </div>
+</div>
 @endsection

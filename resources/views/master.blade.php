@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laravel</title>
+    <title>HeangERP</title>
+    <link rel="icon" type="image" href="{{ asset('LogoBKH1.png') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -53,55 +54,37 @@
             </div>
         </aside>
         <div class="h-screen bg-gray-100 sm:ml-64">
-            <nav class="flex flex-row w-full h-20 bg-white border-l-2 shadow-md">
-                <div class="flex items-center justify-end w-full mr-10">
-                    <!-- User Menu -->
-                    <div class="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-                        <button type="button"
-                                class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                                id="user-menu-button" aria-expanded="false" aria-label="Open user menu">
-                            <span class="sr-only">Open user menu</span>
-                            <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="User Photo">
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-                             id="user-dropdown">
-                            <div class="px-4 py-3">
-                                <span class="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-                            </div>
-                            <ul class="py-2">
-                                <li>
-                                    <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Mobile Menu Toggle -->
-                        <button type="button"
-                                class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                aria-expanded="false" aria-label="Open main menu">
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                 viewBox="0 0 17 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M1 1h15M1 7h15M1 13h15" />
-                            </svg>
-                        </button>
+            <nav class="flex flex-col items-center justify-between w-full h-20 bg-white border-b border-gray-200">
+                <div class="relative flex items-center justify-end w-full h-full gap-4 mr-10">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                        </svg>
                     </div>
-                </div>
+                    <div>
+                        <button id="profile" data-dropdown-toggle="dropdownAvatar" class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-gray-200 dark:text-gray-700" type="button">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="rounded-full size-8" src="{{ asset('image/IMG_7383 copy.jpg') }}" alt="user photo">
+                        </button>
+                    
+                        <!-- Dropdown menu -->
+                        <div id="dropdownmenu" class="absolute z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700 dark:divide-gray-600 right-4 top-16">
+                            <div class="flex flex-col gap-2 px-4 py-2 text-sm text-gray-900 dark:text-white">
+                                <span class="block text-sm text-gray-900 dark:text-white">{{ auth()->user()->name }}</span>
+                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{ auth()->user()->email }}</span>
+                            </div>
+                            
+                            <div class="py-2">
+                                <a href="{{ route('getLogin') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log in</a>
+                                <a href="{{ route('register') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Register</a>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log out</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
             </nav>
 
             <main class="flex w-full p-4">
@@ -114,8 +97,8 @@
     <!-- Scripts -->
     <script>
         // Dropdown functionality
-        const userMenuButton = document.getElementById('user-menu-button');
-        const userDropdown = document.getElementById('user-dropdown');
+        const userMenuButton = document.getElementById('profile');
+        const userDropdown = document.getElementById('dropdownmenu');
 
         userMenuButton.addEventListener('click', () => {
             userDropdown.classList.toggle('hidden');

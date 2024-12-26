@@ -20,6 +20,7 @@ Route::get('/',[AuthController::class,'getLogin'])->name('getLogin');
 Route::post('/login',[AuthController::class,'login'])->name('postLogin');
 Route::get('/register',[AuthController::class,'register'])->name('register');
 Route::post('/register',[AuthController::class,'store'])->name('store');
+Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::middleware([AuthMiddleware::class])->group(function(){
     Route::get('/employee',[EmployeeController::class,'index'])->name('listEmployee');
