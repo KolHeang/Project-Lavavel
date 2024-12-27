@@ -2,6 +2,12 @@
 @section('content')
 <div class="flex flex-col w-full h-full"> 
     <div class="p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg">
+        <!-- Flash Message -->
+        @if (session('success'))
+        <div class="p-4 mb-4 text-green-700 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200" role="alert">
+            <span class="font-medium">{{ session('success') }}</span>
+        </div>
+        @endif
         <div class="flex items-center justify-end mt-2 mb-4 mr-5">
             <a href="{{ route('createEmployee') }}" class="flex items-center justify-center w-20 p-1 font-sans text-lg text-white bg-blue-500 rounded-md shadow-md hover:bg-blue-700">Create</a>
         </div>
