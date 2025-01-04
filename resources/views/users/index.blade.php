@@ -3,11 +3,11 @@
 <div class="flex flex-col w-full h-full"> 
     <div class="p-2 overflow-x-auto bg-white shadow-md sm:rounded-lg">
         <div class="flex items-center justify-end mt-2 mb-4 mr-5">
-            <div class="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 rounded-md hover:bg-blue-800">
+            <div class="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 rounded-md hover:bg-blue-800 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                <a href="{{ route('createEmployee') }}" class="font-sans font-medium text-white ">Create</a>
+                <a href="{{ route('user.create') }}" class="font-sans font-medium text-white">Create</a>
             </div>
         </div>
         
@@ -19,28 +19,13 @@
                             No
                         </th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                            Employee Name
-                        </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                            Gender
-                        </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                            BirthDate
-                        </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                            Phone
+                            User Name
                         </th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             Email
                         </th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                            Position
-                        </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                            Salary
-                        </th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                            Address
+                            Create Date
                         </th>
                         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                             Action
@@ -48,7 +33,7 @@
                     </tr>
                 </thead>
                     <tbody class="bg-white">
-                        @foreach ($employees as $key => $data)
+                        @foreach ($users as $key => $data)
                             <tr class="even:bg-gray-50">
                                 <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $key + 1 }}
@@ -57,29 +42,13 @@
                                     {{ $data->name }}
                                 </td>
                                 <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $data->gender }}
-                                </td>
-                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ \Carbon\Carbon::parse($data->dob)->format('m-d-Y') }}
-                                </td>
-                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $data->phone }}
-                                </td>
-                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
                                     {{ $data->email }}
                                 </td>
                                 <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $data->position }}
+                                    {{ \Carbon\Carbon::parse($data->created_at)->format('m-d-Y') }}
                                 </td>
-                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
-                                    $ {{ $data->salary }}
-                                </td>
-                                <td class="px-3 py-4 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $data->address }}
-                                </td>
-    
                                 <td class="flex items-center gap-4 px-6 py-4">
-                                    <a href="{{ route('editEmployee',['id' => $data->id])}}" class="font-medium">
+                                    <a href="{{ route('user.edit',['id' => $data->id])}}" class="font-medium">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-blue-500 hover:fill-blue-700"
                                         viewBox="0 0 348.882 348.882">
                                         <path
@@ -90,7 +59,7 @@
                                             data-original="#000000" />
                                         </svg>
                                     </a>
-                                    <form action="{{ route('deleteEmployee', ['id' => $data->id]) }}" method="POST" class="flex items-center justify-center" >
+                                    <form action="{{ route('user.delete', ['id' => $data->id]) }}" method="POST" class="flex items-center justify-center" >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="font-medium">
@@ -110,7 +79,7 @@
                         
             </table>
                 <div class="mt-4">
-                    {{ $employees->links() }}
+                    {{ $users->links() }}
                 </div>
         </div>
         
