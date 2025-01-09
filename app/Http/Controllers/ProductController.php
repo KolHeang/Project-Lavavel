@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,95 +11,92 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::all();
-        return response()->json([
-            'status'=>200,
-            'total'=>$product->count(),
-            'result'=>$product
-        ]);
+        $products = Product::orderBy('id', 'desc')->paginate(10);
+        return view('product.list', compact('products'));
+    }
+    public function create()
+    {
+        return view('product.create');
     }
     public function store(Request $request)
     {
-        $validate = Validator::make($request->all(),[
-            'name'=>'required|string',
-            'price'=>'required|numeric',
-            'quantity'=>'required|integer',
-        ]);
-        if($validate->fails()){
-            return response()->json([
-                'status'=>400,
-                'errors'=>$validate->getMessageBag()->toArray()
+        try {
+            $validated = Validator::make($request->all(), [
+                'name' => 'required',
+                'quantity' => 'required|integer',
+                'price' => 'required|numeric',
+                'description' => 'nullable',
             ]);
-        }
-        $product = new Product;
-        $product->name        = $request->input('name');
-        $product->description = $request->input('description');
-        $product->price       = $request->input('price');
-        $product->quantity    = $request->input('quantity');
-        $product->save();
-        return response()->json([
-            'status'=>200,
-            'result'=>"Product Added Successfully"
-        ]);
-    }
-    public function show($id){
-        $product = Product::find($id);
-        if($product){
-            return response()->json([
-                'status'=>200,
-                'result'=>$product
-            ]);
-        }else{
-            return response()->json([
-                'status'=>404,
-                'result'=>"Product Not Found"
-            ]);
-        }
-    }
-    public function update(Request $request){
-        $validate = Validator::make($request->all(),[
-            'id'=>'required|integer',
-            'name'=>'required|string',
-            'price'=>'required|numeric',
-            'quantity'=>'required|integer',
-        ]);
-        if($validate->fails()){
-            return response()->json([
-                'status'=>400,
-                'errors'=>$validate->getMessageBag()->toArray()
-            ]);
-        }
-        $product = Product::find($request->id);
-        if($product){
-            $product->name        = $request->input('name');
-            $product->description = $request->input('description');
-            $product->price       = $request->input('price');
-            $product->quantity    = $request->input('quantity');
+            if ($validated->fails()) {
+                return redirect()->route('product.create')->withInput()->withErrors($validated);
+            }
+            $product = new Product();
+            $product->name = $request->name;
+            $product->quantity = $request->quantity;
+            $product->price = $request->price;
+            $product->description = $request->description;
             $product->save();
-            return response()->json([
-                'status'=>200,
-                'result'=>"Product Updated Successfully"
-            ]);
-        }else{
-            return response()->json([
-                'status'=>404,
-                'result'=>"Product Not Found"
-            ]);
+            if ($request->image != null) {
+                $image = $request->image;
+                $ext = $image->getClientOriginalExtension();
+                $imageName = time() . '.' . $ext;
+                $image->move(public_path('image/product'), $imageName);
+                $product->image = $imageName;
+                $product->save();
+            }
+            return redirect()->route('product.list')->with('success', 'Product created successfully');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
-    public function destroy($id){
-        $product = Product::find($id);
-        if($product){
+    public function edit($id)
+    {
+        $product = Product::findorFail($id);
+        return view('product.edit', compact('product'));
+    }
+    public function update(Request $request)
+    {
+        try {
+            $validated = Validator::make($request->all(), [
+                'id' => 'required|integer',
+                'name' => 'required',
+                'quantity' => 'required|integer',
+                'price' => 'required|numeric',
+                'description' => 'nullable',
+            ]);
+
+            $id = $request->id;
+            $product = Product::findorFail($id);
+            if ($validated->fails()) {
+                return redirect()->route('product.edit')->withInput()->withErrors($validated->errors()->getMessages());
+            }
+            $product->name = $request->name;
+            $product->quantity = $request->quantity;
+            $product->price = $request->price;
+            $product->description = $request->description;
+            $product->save();
+            if ($request->image != null) {
+
+                $image = $request->image;
+                $ext = $image->getClientOriginalExtension();
+                $imageName = time() . '.' . $ext;
+                $image->move(public_path('image/product'), $imageName);
+                $product->image = $imageName;
+                $product->save();
+            }
+            return redirect()->route('product.list')->with('success', 'Product updated successfully');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+    public function destroy($id)
+    {
+        try {
+            $product = Product::findorFail($id);
             $product->delete();
-            return response()->json([
-                'status'=>200,
-                'result'=>"Product Deleted Successfully"
-            ]);
-        }else{
-            return response()->json([
-                'status'=>404,
-                'result'=>"Product Not Found"
-            ]);
+            return redirect()->route('product.list')->with('success', 'Product deleted successfully');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

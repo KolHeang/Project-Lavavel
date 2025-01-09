@@ -49,6 +49,7 @@ class EmployeeController extends Controller
             $employee->position = $request->position;
             $employee->salary = $request->salary;
             $employee->address = $request->address;
+            Session()->flash('success', 'Employee created successfully');
             $employee->save();
             if ($employee) {
                 return redirect()->route('listEmployee')->with('success', 'Employee created successfully');
