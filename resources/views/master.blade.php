@@ -7,11 +7,12 @@
     <title>HeangERP</title>
     <link rel="icon" type="image" href="{{ asset('LogoBKH1.png') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <div>
         <aside class="fixed top-0 left-0 z-40 w-64 h-screen shadow-md bg-slate-800">
-            <div class="h-full">
+            <div class="h-auto">
                 <div class="flex items-center justify-center w-full h-20 text-lg text-white border-b-2">
                     <img src="{{ asset('LogoBKH2.png') }}" alt="" class="h-20 w-34">
                 </div>
@@ -26,11 +27,11 @@
                             </a>
                         </li>
                         <li class="rounded-md hover:bg-slate-900">
-                            <a href="#" class="flex items-center p-2 text-white rounded-lg group">
+                            <a href="{{ route('supplier.list') }}" class="flex items-center p-2 text-white rounded-lg group">
                                 <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
                                 </svg>
-                                <span class="flex-1 ms-3 whitespace-nowrap">Project</span>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Supplier</span>
                             </a>
                         </li>
                         <li class="rounded-md hover:bg-slate-900">
@@ -42,7 +43,7 @@
                             </a>
                         </li>
                         <li class="rounded-md hover:bg-slate-900">
-                            <a href="#" class="flex items-center p-2 text-white rounded-lg group">
+                            <a href="{{ route('product.list') }}" class="flex items-center p-2 text-white rounded-lg group">
                                 <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                                     <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>
                                 </svg>
@@ -88,7 +89,7 @@
             </nav>
 
             <main class="flex w-full p-4">
-                <div class="flex w-full h-[830px]">
+                <div class="flex w-full h-auto">
                     @yield('content')
                 </div>
             </main>
@@ -110,5 +111,7 @@
             }
         });
     </script>
+    <!-- Scripts -->
+    @yield('scripts')
 </body>
 </html>
